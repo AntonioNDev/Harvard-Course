@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Currency DATA</title>
+   </head>
+   <script>
+      document.addEventListener('DOMContentLoaded', () => {
+               document.querySelector('form').onsubmit = function() {
+
+                  // Send a GET request to the URL
+                  fetch('http://api.exchangeratesapi.io/v1/latest?access_key=02329b8e1e9310321369be50b5d496be&format=1')
+                  // Put response into json form
+                  .then(response => response.json())
+                  .then(data => {
+                        // Get currency from user input and convert to upper case
+                        const currency = document.querySelector('#currency').value.toUpperCase();
+
+                        // Get rate from data
+                        const rate = data.rates[currency];
+                        console.log(data)
+		
+                        // Check if currency is valid:
+                        if (rate !== undefined) {
+                           // Display exchange on the screen
+                           document.querySelector('#results').innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}.`;
+                        }
+                        else {
+                           // Display error on the screen
+                           document.querySelector('#results').innerHTML = 'Invalid Currency.';
+                        }
+                  })
+                  // Catch any errors and log them to the console
+                  .catch(error => {
+                        console.log('Error:', error);
+                  });
+                  // Prevent default submission
+                  return false;
+               }
+         });
+   </script>
+<body>
+   <form>
+      <input type="text" id="currency" placeholder="Currency" autocomplete="off">
+      <button type="submit">Convert</button>
+   </form>
+
+   <div id="results"></div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+      <title>ReactJS</title>
+      <style>
+         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 99vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+         }
+         .box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 500px;
+            height: 500px;
+         }
+         .box > input {
+            margin-top: 10px;
+            width: 40%;
+            height: 30px;
+            border: 1.5px solid crimson;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="app" />
+        <script type="text/babel">
+
+
+            class App extends React.Component {
+               
+                  constructor(props) {
+                     super(props);
+                        this.state = {
+                        score: 0,
+                        num1: Math.ceil(Math.random() * 10),
+                        num2: Math.ceil(Math.random() * 10),
+                        quotes: ['Well done!', 'Wow you won!', 'Good game!', 'Math goes BRRRR'],
+                     };
+                  }
+                  render() { 
+                        if (this.state.score >= 10) {
+                           let quotes = Math.ceil(Math.random() * this.state.quotes.length - 1)
+                           return (
+                              <h1>{this.state.quotes[quotes]}</h1>
+                           )
+                        }
+
+                        return (
+                           <div className= "box">
+                              <h1>{this.state.num1} * {this.state.num2}</h1>
+                              <div>Score: {this.state.score}</div>
+                              <input onKeyPress={this.inputKeyPress} onChange={this.updateResponse} value={this.state.response}/>    
+                           </div>
+                        );
+                     }
+
+                  updateResponse = (event) => {
+                     this.setState({
+                        response: event.target.value
+                     });
+                  }
+                  inputKeyPress = (event) => {
+                     if (event.key === 'Enter') {
+                        const answer = parseInt(this.state.response)
+                        if (answer === this.state.num1 * this.state.num2) {
+                           this.setState(state => ({
+                              score: state.score + 1,
+                              num1: Math.ceil(Math.random() * 10),
+                              num2: Math.ceil(Math.random() * 10),
+                              response: ""
+                           }));
+                        }else{
+                           this.setState(state => ({
+                              score: state.score - 1,
+                              response: ""
+                           }));
+                        }
+                     }
+                  }
+               }
+             
+            ReactDOM.render(<App />, document.querySelector("#app"));
+        </script>
+   </body>
+</html>

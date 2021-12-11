@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Counter</title>
+   </head>
+   <body>
+      <script>
+         if(!localStorage.getItem('counter')){
+            localStorage.setItem('counter', 0)
+            console.log('Counter doesn\'t exist!')
+         }else{
+            console.log('Counter exist!.')
+         }
+         
+         let timer = 0
+         function count() {
+            let counter = localStorage.getItem('counter')
+            counter++;
+            localStorage.setItem('counter', counter)
+            document.querySelector('h1').innerHTML = counter;
+         }
+         function reset() {
+            counter = 0
+            document.querySelector('h1').innerHTML = counter;
+         }
+         function start_timer() {
+            timer++;
+            document.querySelector('#header').innerHTML = timer;
+         }
+
+         document.addEventListener('DOMContentLoaded', () => {
+               //start function
+               document.querySelector('#start').onclick = () => {
+               let interv = setInterval(start_timer, 1000);
+               console.log('Hello');
+               
+               //stop function
+               document.querySelector('#stop').onclick = () => {
+                  clearInterval(interv, 1000)
+                  console.log('meow')
+               }
+            }  
+         })
+
+
+         
+      </script>
+      <h1 id="header">Hello!</h1>
+      <button onclick="count()">Count</button><br>
+      <button onclick="reset()">Reset</button><br>
+      <button id="start">Start Timer</button>
+      <button id="stop">Stop Timer</button>
+   </body>
+</html>
