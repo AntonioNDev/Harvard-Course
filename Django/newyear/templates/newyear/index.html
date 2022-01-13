@@ -2,20 +2,45 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="{% static 'newyear/style.css' %}">
-   <title>IsNewYear</title>
-</head>
-<body>
-   <h1>
-      {% if newyear %}
-         <h1>YES</h1>
-      {% else %}
-         <h1>NO</h1>
-      {% endif %}
-   </h1>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{% static 'newyear/style.css' %}">
+      <title>IsNewYear</title>
+      <script>
+
+         document.addEventListener('DOMContentLoaded', () => {
+            var span = document.getElementById('time');
+
+            function time() {
+               var d = new Date();
+               var s = d.getSeconds();
+               var m = d.getMinutes();
+               var h = d.getHours();
+               span.textContent = 
+                ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+            }
+
+            setInterval(time, 1000);
+         })
+
+      </script>
+   </head>
+   <body>
+      <video autoplay muted loop id="myVideo">
+         <source src="{% static 'newyear/fireworks.mp4' %}"" type="video/mp4">
+       </video>
+      <h1>
+         {% if newyear %}
+            <h1 id="answer">Yes</h1>
+         {% else %}
+            <h1 id="answer">No</h1>
+         {% endif %}
+      </h1>
+      <h1>
+         <h1 id="date">{{dateNow}}</h1>
+         <span id="time" style="font-size: 25px;"></span>
+      </h1>
+   </body>
 </html>

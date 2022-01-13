@@ -1,5 +1,35 @@
-h1 {
-   font-family: sans-serif;
-   font-size: 90px;
-   text-align: center;
+* {
+   padding: 0;
+   margin: 0;
 }
+
+body {
+   width: 98%;
+   height: 97vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+#answer {
+   text-align: center;
+   font-size: 75px;
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#myVideo {
+   width: 100vw;
+   height: 100vh;
+   object-fit: cover;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: -1;
+   filter: brightness(0.3);
+ }
+
+ #date, #time, #answer {
+    z-index: 99;
+    color: white;
+ }
